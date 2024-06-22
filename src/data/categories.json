@@ -1,27 +1,32 @@
 [
     {
-        "id": 1,
+        "categoryId": 1,
         "name": "Bakery",
         "image": "https://fakeimg.pl/120x120/"
     },
     {
-        "id": 2,
+        "categoryId": 2,
         "name": "Fruits",
         "image": "https://fakeimg.pl/120x120/"
     },
     {
-        "id": 3,
+        "categoryId": 3,
         "name": "Vegetables",
         "image": "https://fakeimg.pl/120x120/"
     },
     {
-        "id": 4,
+        "categoryId": 4,
         "name": "Meats",
         "image": "https://fakeimg.pl/120x120/"
     },
     {
-        "id": 5,
-        "name": "Bakery",
+        "categoryId": 5,
+        "name": "Snacks",
+        "image": "https://fakeimg.pl/120x120/"
+    },
+    {
+        "categoryId": 6,
+        "name": "All",
         "image": "https://fakeimg.pl/120x120/"
     }
 ]

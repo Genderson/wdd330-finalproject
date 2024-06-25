@@ -1,13 +1,18 @@
 import { getData } from "./productData.mjs";
 import { renderListWithTemplate } from "./utils.mjs";
 
-export async function loadProducts(selector, categoryId) {
+export async function loadProducts(selector, categoryIds, clear) {
     let products = await getData("products");
-    if(categoryId && categoryId !== "6"){
-        products = products.filter(p => p.categoryId == categoryId);
+
+    //products = products.filter(p => categoryIds.includes(p.categoryId));
+
+    if(categoryIds && !categoryIds.includes(6)){
+        //products = products.filter(p => p.categoryId == categoryId);
+        products = products.filter(p => categoryIds.includes(p.categoryId));
+        //console.log(productss);
     }
 
-    renderListWithTemplate(buildProductTemplate, selector, products);
+    renderListWithTemplate(buildProductTemplate, selector, products, clear);
 
     const plusButtons = document.querySelectorAll('.qty-right-plus');
     const minusButtons = document.querySelectorAll('.qty-left-minus');

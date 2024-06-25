@@ -23,7 +23,7 @@ export function setClick(selector, callback) {
 }
 
 
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true) {
+export function renderListWithTemplate(templateFn, parentElement, list, clear = true, position = "afterbegin") {
   if (clear){
     parentElement.replaceChildren();
   }

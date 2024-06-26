@@ -27,6 +27,16 @@ export function renderListWithTemplate(templateFn, parentElement, list, clear = 
   if (clear){
     parentElement.replaceChildren();
   }
+
   const htmlStrings =  list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+}
+
+export function renderWithTemplate(templateFn, parentElement, data, clear = true, position = "afterbegin") {
+  if (clear){
+    parentElement.replaceChildren();
+  }
+
+  const html = templateFn(data);
+  parentElement.insertAdjacentHTML(position, html);
 }

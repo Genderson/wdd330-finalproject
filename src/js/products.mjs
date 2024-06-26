@@ -1,5 +1,5 @@
 import { getData } from "./productData.mjs";
-import { renderListWithTemplate } from "./utils.mjs";
+import { getLocalStorage, renderListWithTemplate, renderWithTemplate, setLocalStorage } from "./utils.mjs";
 
 export async function loadProducts(selector, categoryIds, clear) {
     let products = await getData("products");
@@ -14,26 +14,42 @@ export async function loadProducts(selector, categoryIds, clear) {
 
     renderListWithTemplate(buildProductTemplate, selector, products, clear);
 
-    const plusButtons = document.querySelectorAll('.qty-right-plus');
-    const minusButtons = document.querySelectorAll('.qty-left-minus');
+    const plusButtons = document.querySelectorAll(".qty-right-plus");
+    const minusButtons = document.querySelectorAll(".qty-left-minus");
 
     plusButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const productId = button.getAttribute('data-product-id');
-            updateValue(productId, 1);
+            const productId = button.getAttribute("data-product-id");
+            updateQuantity(productId, 1);
         });
     });
 
     minusButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const productId = button.getAttribute('data-product-id');
-            updateValue(productId, -1);
+            const productId = button.getAttribute("data-product-id");
+            updateQuantity(productId, -1);
+        });
+    });
+
+
+    const addCartButtons = document.querySelectorAll(".add-cart-btn");
+    addCartButtons.forEach(button => {
+        button.addEventListener('click', async() => {
+            const productId = button.getAttribute("data-product-id");
+            await addTocart(productId);
         });
     });
 }
 
+export async function loadViewProduct(selector, productId){
+    const products = await getData("products");
+    const product = products.find(p => p.productId == productId);
 
-export function updateValue(productId, change) {
+    renderWithTemplate(buildViewProductTemplate, selector, product);
+}
+
+
+function updateQuantity(productId, change) {
     const input = document.getElementById(`input-quantity-${productId}`);
     const currentValue = parseInt(input.value, 10);
 
@@ -43,9 +59,31 @@ export function updateValue(productId, change) {
     }    
 }
 
+async function addTocart(productId) {
+    const inputQuantity = document.getElementById(`input-quantity-${productId}`);
+    const quantity = Number(inputQuantity.value);
+
+    if(quantity > 0){
+        let productsInCart = getLocalStorage("products-in-cart") || [];
+        let productAlreadyAdded = productsInCart.find(p => p.productId == productId);
+    
+        if (productAlreadyAdded){
+            productAlreadyAdded.Quantity  = productAlreadyAdded.Quantity + quantity;
+        }
+        else{
+            let products = await getData("products");
+            let newProduct = products.find(p => p.productId == productId);
+            newProduct.Quantity = quantity;
+            productsInCart.push(newProduct);
+        }
+
+        setLocalStorage("products-in-cart", productsInCart);
+    }
+}
+
 function buildProductTemplate(product) {
     
-    return `<div id="'${product.productId}'" class="product-card">
+    return `<div id="${product.productId}" class="product-card">
                 <img src="${product.image}" alt="">
                 <h2>${product.name}</h2>
                 <p>${product.price}</p>
@@ -53,31 +91,41 @@ function buildProductTemplate(product) {
                     <button type="button" class="qty-left-minus" data-product-id="${product.productId}">
                         <i class="fa fa-minus"></i>
                     </button>
-                    <input class="form-control qty-input" id="input-quantity-${product.productId}" type="number" name="quantity" min="0" max="100" value="0">
+                    <input class="qty-input" id="input-quantity-${product.productId}" type="number" name="quantity" min="0" max="100" value="0">
 
                     <button type="button" class="qty-right-plus" data-product-id="${product.productId}">
                         <i class="fa fa-plus"></i>
                     </button>
-                    <button type="button" class="">Add</button>
+                    <button type="button" data-product-id="${product.productId}" class="add-cart-btn">Add</button>
                 </div>
                 <ul class="product-option">
-                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="View">
-                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa-regular fa-eye openModalBtn" data-product-id="${product.productId}"></i>                            
                         </a>
                     </li>
 
-                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Compare">
-                        <a href="compare.html">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-refresh-cw"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                        </a>
-                    </li>
-
-                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Wishlist">
-                        <a href="wishlist.html" class="notifi-wishlist">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                        </a>
+                    <li>
+                        <i class="fa-regular fa-heart user-options-icons"></i>
                     </li>
                 </ul>
             </div>`;
-  }
+}
+
+function buildViewProductTemplate(product) {
+    
+    return `<div id="${product.productId}">
+                <img src="${product.image}" alt="">
+                <h2>${product.name}</h2>
+                <p>${product.price}</p>
+            </div>`;
+}
+
+function showProductAddedMessage() {
+    const myDiv = document.getElementById('add-to-cart-message');
+    myDiv.style.display = "block";
+
+    setTimeout(() => {
+        myDiv.style.display = "none";
+    }, 2000);
+}

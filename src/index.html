@@ -8,60 +8,68 @@
   </head>
   <body>
     <div class="grid-container">
-        <header class="header">
-            <div class="menu">
-                <button>Botón 1</button>
-                <button>Botón 2</button>
-                <button>Botón 3</button>
-            </div>
-            <div class="search-box">
-              <input type="search"  placeholder="I'm searching for...">
-              <button type="button" id="search-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </button>
-          </div>
-            <div class="user-options">
-              <a href=""><i class="fa-regular fa-heart user-options-icons"></i></a>
-              <a href=""><i class="fa-solid fa-cart-arrow-down user-options-icons"></i></a>
-              <a href=""><i class="fa-regular fa-user user-options-icons"></i></a>
-            </div>
-        </header>
-        <section class="banner">
-          <div class="carousel-container">
-            <div class="carousel">
-                <div class="carousel-slide active">
-                    <img src="images/banner/slider-1.png" alt="Imagen 1">
-                </div>
-                <div class="carousel-slide">
-                    <img src="images/banner/slider-2.png" alt="Imagen 2">
-                </div>
-                <div class="carousel-slide">
-                  <img src="images/banner/slider-3.png" alt="Imagen 2">
-              </div>
-            </div>
-            <button class="carousel-control prev" id="prevImage" >&#10094;</button>
-            <button class="carousel-control next" id="nextImage" >&#10095;</button>
+      <header class="header">
+        <div class="menu">
+          <button>Botón 1</button>
+          <button>Botón 2</button>
+          <button>Botón 3</button>
         </div>
-        </section>
+        <div class="search-box">
+          <input type="search" placeholder="I'm searching for..." />
+          <button type="button" id="search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+        <div class="user-options">
+          <a href=""><i class="fa-regular fa-heart user-options-icons"></i></a>
+          <a href=""
+            ><i class="fa-solid fa-cart-arrow-down user-options-icons"></i
+          ></a>
+          <a href=""><i class="fa-regular fa-user user-options-icons"></i></a>
+        </div>
+      </header>
+      <section class="banner">
+        <div class="carousel-container">
+          <div class="carousel">
+            <div class="carousel-slide active">
+              <img src="images/banner/slider-1.png" alt="Imagen 1" />
+            </div>
+            <div class="carousel-slide">
+              <img src="images/banner/slider-2.png" alt="Imagen 2" />
+            </div>
+            <div class="carousel-slide">
+              <img src="images/banner/slider-3.png" alt="Imagen 2" />
+            </div>
+          </div>
+          <button class="carousel-control prev" id="prevImage">&#10094;</button>
+          <button class="carousel-control next" id="nextImage">&#10095;</button>
+        </div>
+      </section>
 
-        <section id="categories-container" class="categories">
-        </section>
-        <aside class="sidebar">
-            <h2>Sidebar</h2>
-            <p>Contenido del sidebar</p>
-            <ul id="categories-filter"></ul>
-        </aside>
-        <main class="content">
-            <h2>Contenido Principal</h2>
-            <p>Este es el área principal de contenido.</p>
-            <section id="products-container" class="products">
-            </section>
-        </main>
-        <footer class="footer">
-            <p>&copy; 2024 Mi Tienda. Todos los derechos reservados.</p>
-        </footer>        
+      <section id="categories-container" class="categories"></section>
+      <aside class="sidebar">
+        <h2>Sidebar</h2>
+        <p>Contenido del sidebar</p>
+        <ul id="categories-filter"></ul>
+      </aside>
+      <main class="content">
+        <h2>Contenido Principal</h2>
+        <p>Este es el área principal de contenido.</p>
+        <section id="products-container" class="products"></section>
+      </main>
+      <footer class="footer">
+        <p>&copy; 2024 Mi Tienda. Todos los derechos reservados.</p>
+      </footer>
     </div>
-    <script src="./js/carousel.mjs" type="module" defer></script>
+
+    <div id="viewProductModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <section id="product-detail">inside modal</section>
+      </div>
+    </div>
+    <script src="../js/carousel.mjs" type="module" defer></script>
     <script src="../js/mainPage.mjs" type="module" defer></script>
-</body>
+    <script src="../js/viewProduct.mjs" type="module" defer></script>
+  </body>
 </html>

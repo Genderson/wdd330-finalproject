@@ -1,5 +1,5 @@
 import { getData } from "./productData.mjs";
-import { getLocalStorage, renderListWithTemplate, renderWithTemplate, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, renderListWithTemplate, renderWithTemplate, setLocalStorage, updateQuantity } from "./utils.mjs";
 
 export async function loadProducts(selector, categoryIds, clear) {
     let products = await getData("products");
@@ -46,17 +46,6 @@ export async function loadViewProduct(selector, productId){
     const product = products.find(p => p.productId == productId);
 
     renderWithTemplate(buildViewProductTemplate, selector, product);
-}
-
-
-function updateQuantity(productId, change) {
-    const input = document.getElementById(`input-quantity-${productId}`);
-    const currentValue = parseInt(input.value, 10);
-
-    let newValue = currentValue + change;
-    if(newValue >= 1){
-        input.value = currentValue + change;
-    }    
 }
 
 async function addTocart(productId) {

@@ -1,4 +1,4 @@
-import { getLocalStorage, renderListWithTemplate } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, renderListWithTemplate, updateQuantity } from "./utils.mjs";
 
 export async function loadCarts(selector, clear) {
     let productsInCart = getLocalStorage("products-in-cart");
@@ -11,14 +11,16 @@ export async function loadCarts(selector, clear) {
     plusButtons.forEach(button => {
         button.addEventListener('click', () => {
             const productId = button.getAttribute("data-product-id");
-            //updateQuantity(productId, 1);
+            updateQuantity(productId, 1);
+            calculateSubTotal(productId);
         });
     });
 
     minusButtons.forEach(button => {
         button.addEventListener('click', () => {
             const productId = button.getAttribute("data-product-id");
-            //updateQuantity(productId, -1);
+            updateQuantity(productId, -1);
+            calculateSubTotal(productId);
         });
     });
 
@@ -33,7 +35,7 @@ export async function loadCarts(selector, clear) {
 
 function buildCartTemplate(product) {
 
-    return `<tr>
+    return `<tr id="row-${product.productId}">
                 <td>
                     <img src="${product.image}" alt="${product.name}">
                 </td>
@@ -55,7 +57,7 @@ function buildCartTemplate(product) {
                     </div>
                 </td>
                 <td class="price" data-title="Price">
-                    <span class="text-brand">$${product.price * product.quantity}</span>
+                    <span class="text-brand" id="subtotal-${product.productId}" data-product-price="${product.price}" >$${product.price * product.quantity}</span>
                 </td>
                 <td class="action text-center" data-title="Remove">
                     <i class="fa-solid fa-trash-can remove-cart-btn" data-product-id="${product.productId}"></i>
@@ -68,12 +70,29 @@ function removeProduct(productId){
     let cart = getLocalStorage("products-in-cart") || [];
 
     //Find the item in the index
-    const itemIndex = cart.findIndex((item) => item.productId === productId);
+    const itemIndex = cart.findIndex((item) => item.productId == Number(productId));
 
     // Remove from array
     if (itemIndex !== -1) {
         cart.splice(itemIndex, 1);
         // update localStorage
-        localStorage.setItem("products-in-cart", JSON.stringify(cart));
+        setLocalStorage("products-in-cart", cart);
+        //localStorage.setItem("products-in-cart", JSON.stringify(cart));
+        const row = document.getElementById(`row-${productId}`);
+        row.remove();
     }
+}
+
+function calculateSubTotal(productId){
+    const spanSubtotal = document.getElementById(`subtotal-${productId}`);
+    const price = spanSubtotal.getAttribute("data-product-price");
+
+    const input = document.getElementById(`input-quantity-${productId}`);
+    const quantity = parseInt(input.value, 10);
+    const subtotal = quantity * price;
+    spanSubtotal.innerHTML = `$${subtotal}`;
+}
+
+function calculateSummary(){
+    const spanSubtotal = document.getElementById(`subtotal-${productId}`);
 }

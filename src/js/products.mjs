@@ -1,5 +1,6 @@
 import { getData } from "./productData.mjs";
 import { getLocalStorage, renderListWithTemplate, renderWithTemplate, setLocalStorage, updateQuantity } from "./utils.mjs";
+import { displayTotalCartItems } from "./cart.mjs";
 
 export async function loadProducts(selector, categoryIds, clear) {
     let products = await getData("products");
@@ -57,7 +58,7 @@ async function addTocart(productId) {
         let productAlreadyAdded = productsInCart.find(p => p.productId == productId);
     
         if (productAlreadyAdded){
-            productAlreadyAdded.quantity = productAlreadyAdded.Quantity + quantity;
+            productAlreadyAdded.quantity = productAlreadyAdded.quantity + quantity;
         }
         else{
             let products = await getData("products");
@@ -68,6 +69,7 @@ async function addTocart(productId) {
 
         setLocalStorage("products-in-cart", productsInCart);
         showProductAddedMessage(productId, quantity);
+        displayTotalCartItems();
     }
 }
 

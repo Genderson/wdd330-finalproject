@@ -4,6 +4,7 @@ export async function loadCarts(selector, clear) {
     let productsInCart = getLocalStorage("products-in-cart");
 
     renderListWithTemplate(buildCartTemplate, selector, productsInCart, clear);
+    calculateSummary();
 
     const plusButtons = document.querySelectorAll(".qty-right-plus");
     const minusButtons = document.querySelectorAll(".qty-left-minus");
@@ -12,7 +13,10 @@ export async function loadCarts(selector, clear) {
         button.addEventListener('click', () => {
             const productId = button.getAttribute("data-product-id");
             updateQuantity(productId, 1);
+            updateQuantityStorage(productId);
             calculateSubTotal(productId);
+            calculateSummary();
+            displayTotalCartItems();
         });
     });
 
@@ -20,7 +24,10 @@ export async function loadCarts(selector, clear) {
         button.addEventListener('click', () => {
             const productId = button.getAttribute("data-product-id");
             updateQuantity(productId, -1);
+            updateQuantityStorage(productId);
             calculateSubTotal(productId);
+            calculateSummary();
+            displayTotalCartItems();
         });
     });
 
@@ -29,8 +36,27 @@ export async function loadCarts(selector, clear) {
         button.addEventListener('click', async() => {
             const productId = button.getAttribute("data-product-id");
             removeProduct(productId);
+            calculateSummary();
+            displayTotalCartItems();
         });
     });
+}
+
+export function displayTotalCartItems() {
+    const cartItems = getLocalStorage("products-in-cart");
+    let totalItems = 0;
+  
+    if (cartItems) {
+      totalItems = cartItems.reduce(
+        (sum, item) => sum + (item.quantity || 0),
+        0
+      );
+    }
+  
+    const cartIcon = document.querySelector("#cart-items");
+    if(cartIcon){
+      cartIcon.textContent = totalItems.toString();
+    }  
 }
 
 function buildCartTemplate(product) {
@@ -57,7 +83,7 @@ function buildCartTemplate(product) {
                     </div>
                 </td>
                 <td class="price" data-title="Price">
-                    <span class="text-brand" id="subtotal-${product.productId}" data-product-price="${product.price}" >$${product.price * product.quantity}</span>
+                    <span class="subtotal-value" id="subtotal-${product.productId}" data-product-price="${product.price}" >$${product.price * product.quantity}</span>
                 </td>
                 <td class="action text-center" data-title="Remove">
                     <i class="fa-solid fa-trash-can remove-cart-btn" data-product-id="${product.productId}"></i>
@@ -83,6 +109,19 @@ function removeProduct(productId){
     }
 }
 
+function updateQuantityStorage(productId){
+    // Get Cart items from local storage
+    let productsInCart = getLocalStorage("products-in-cart") || [];
+
+    const input = document.getElementById(`input-quantity-${productId}`);
+    const currentValue = parseInt(input.value, 10);
+
+    let productAlreadyAdded = productsInCart.find(p => p.productId == productId);
+    productAlreadyAdded.quantity = currentValue;
+
+    setLocalStorage("products-in-cart", productsInCart);
+}
+
 function calculateSubTotal(productId){
     const spanSubtotal = document.getElementById(`subtotal-${productId}`);
     const price = spanSubtotal.getAttribute("data-product-price");
@@ -94,5 +133,31 @@ function calculateSubTotal(productId){
 }
 
 function calculateSummary(){
-    const spanSubtotal = document.getElementById(`subtotal-${productId}`);
+    const subtotalValues = document.querySelectorAll(".subtotal-value");
+    let subtotal = 0; 
+    /*for (const sub in subtotalValues) {
+        let value = sub.slice(1);
+        subtotal += Number(value);
+    }*/
+    
+    for (let index = 0; index < subtotalValues.length; index++) {
+        const element = subtotalValues[index];
+        let value = element.textContent.slice(1);
+        subtotal += Number(value);     
+    }
+    
+    const finalSubTotal = document.getElementById(`subtotal`);
+    finalSubTotal.innerHTML = subtotal;
+
+    const shipping = document.getElementById(`shipping`);
+    const finalTotal = document.getElementById(`total`);
+    if(subtotal > 0){
+        shipping.innerHTML = 10;
+        finalTotal.innerHTML = subtotal + 10;
+    }
+    else{
+        shipping.innerHTML = 0;
+        finalTotal.innerHTML = 0;
+    }
 }
+

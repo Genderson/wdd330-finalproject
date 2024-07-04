@@ -351,10 +351,23 @@ input[type="number"] {
 .cart-products thead th {
   background-color: #ececec;
   padding: 18px 0;
-  font-family: "Quicksand", sans-serif;
+  /*font-family: "Quicksand", sans-serif;*/
   font-size: 17px;
   font-weight: 700;
   color: #000;
+}
+
+#cart-items {
+  position: absolute;
+  top: -16px;
+  right: 24px;
+  cursor: pointer;
+  font-size: 13px;
+  border: 3px solid;
+  padding: 2px 6px;
+  background: #ffa524;
+  border-radius: 19px;
+  font-weight: bold;
 }
 
 /*

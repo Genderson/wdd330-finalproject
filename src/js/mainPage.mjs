@@ -1,3 +1,4 @@
+import { displayTotalCartItems } from "./cart.mjs";
 import { loadCategories, loadCategoriesFilter } from "./categories.mjs";
 import { loadProducts } from "./products.mjs";
 
@@ -16,3 +17,4 @@ if (categoriesFilter){
     loadCategoriesFilter(categoriesFilter);
 }
 
+displayTotalCartItems();

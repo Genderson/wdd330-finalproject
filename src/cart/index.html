@@ -17,9 +17,10 @@
 
         <div class="user-options">
           <a href=""><i class="fa-regular fa-heart user-options-icons"></i></a>
-          <a href=""
-            ><i class="fa-solid fa-cart-arrow-down user-options-icons"></i
-          ></a>
+          <a href="">
+            <i class="fa-solid fa-cart-arrow-down user-options-icons"></i>
+            <div id="cart-items"></div>
+          </a>
           <a href=""><i class="fa-regular fa-user user-options-icons"></i></a>
         </div>
       </header>
@@ -70,8 +71,9 @@
         </div>
         <div class="cart-summary">
             <h2>Resumen del Carrito</h2>
-            <p>Subtotal: $<span id="subtotal">100</span></p>
-            <p>Total: $<span id="total">120</span></p>
+            <p>Subtotal: $<span id="subtotal"></span></p>
+            <p>Shipping: $<span id="shipping"></span></p>
+            <p>Total: $<span id="total"></span></p>
         </div>
 
       <footer class="footer">

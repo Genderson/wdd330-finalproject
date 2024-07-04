@@ -40,3 +40,13 @@ export function renderWithTemplate(templateFn, parentElement, data, clear = true
   const html = templateFn(data);
   parentElement.insertAdjacentHTML(position, html);
 }
+
+export function updateQuantity(productId, change) {
+  const input = document.getElementById(`input-quantity-${productId}`);
+  const currentValue = parseInt(input.value, 10);
+
+  let newValue = currentValue + change;
+  if(newValue >= 1){
+      input.value = currentValue + change;
+  }    
+}

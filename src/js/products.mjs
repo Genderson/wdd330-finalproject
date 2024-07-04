@@ -1,5 +1,6 @@
 import { getData } from "./productData.mjs";
-import { getLocalStorage, renderListWithTemplate, renderWithTemplate, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, renderListWithTemplate, renderWithTemplate, setLocalStorage, updateQuantity } from "./utils.mjs";
+import { displayTotalCartItems } from "./cart.mjs";
 
 export async function loadProducts(selector, categoryIds, clear) {
     let products = await getData("products");
@@ -48,17 +49,6 @@ export async function loadViewProduct(selector, productId){
     renderWithTemplate(buildViewProductTemplate, selector, product);
 }
 
-
-function updateQuantity(productId, change) {
-    const input = document.getElementById(`input-quantity-${productId}`);
-    const currentValue = parseInt(input.value, 10);
-
-    let newValue = currentValue + change;
-    if(newValue >= 0){
-        input.value = currentValue + change;
-    }    
-}
-
 async function addTocart(productId) {
     const inputQuantity = document.getElementById(`input-quantity-${productId}`);
     const quantity = Number(inputQuantity.value);
@@ -68,16 +58,18 @@ async function addTocart(productId) {
         let productAlreadyAdded = productsInCart.find(p => p.productId == productId);
     
         if (productAlreadyAdded){
-            productAlreadyAdded.Quantity  = productAlreadyAdded.Quantity + quantity;
+            productAlreadyAdded.quantity = productAlreadyAdded.quantity + quantity;
         }
         else{
             let products = await getData("products");
             let newProduct = products.find(p => p.productId == productId);
-            newProduct.Quantity = quantity;
+            newProduct.quantity = quantity;
             productsInCart.push(newProduct);
         }
 
         setLocalStorage("products-in-cart", productsInCart);
+        showProductAddedMessage(productId, quantity);
+        displayTotalCartItems();
     }
 }
 
@@ -91,13 +83,16 @@ function buildProductTemplate(product) {
                     <button type="button" class="qty-left-minus" data-product-id="${product.productId}">
                         <i class="fa fa-minus"></i>
                     </button>
-                    <input class="qty-input" id="input-quantity-${product.productId}" type="number" name="quantity" min="0" max="100" value="0">
+                    <input class="qty-input" id="input-quantity-${product.productId}" type="number" name="quantity" min="1" max="100" value="1">
 
                     <button type="button" class="qty-right-plus" data-product-id="${product.productId}">
                         <i class="fa fa-plus"></i>
                     </button>
                     <button type="button" data-product-id="${product.productId}" class="add-cart-btn">Add</button>
                 </div>
+                <div id="add-to-cart-message-${product.productId}">
+                </div>
+
                 <ul class="product-option">
                     <li>
                         <a href="javascript:void(0)">
@@ -115,17 +110,19 @@ function buildProductTemplate(product) {
 function buildViewProductTemplate(product) {
     
     return `<div id="${product.productId}">
-                <img src="${product.image}" alt="">
+                <img src="${product.image}" alt="${product.name}">
                 <h2>${product.name}</h2>
                 <p>${product.price}</p>
             </div>`;
 }
 
-function showProductAddedMessage() {
-    const myDiv = document.getElementById('add-to-cart-message');
-    myDiv.style.display = "block";
+function showProductAddedMessage(productId, quantity) {
+    let divMessage = document.getElementById(`add-to-cart-message-${productId}`);
+    //const myDiv = document.getElementById('add-to-cart-message');
+    divMessage.style.display = "block";
+    divMessage.textContent = `Add to Cart text ${quantity}`;
 
     setTimeout(() => {
-        myDiv.style.display = "none";
+        divMessage.style.display = "none";
     }, 2000);
 }

@@ -1,3 +1,5 @@
+import { getData } from "./productData.mjs";
+import { getLocalStorage, setLocalStorage, renderListWithTemplate } from "./utils.mjs";
 
 export async function loadWishlistProducts(selector, clear) {
     let productsInWishlist = getLocalStorage("products-in-wishlist");
@@ -11,7 +13,7 @@ export async function addToWishlist(productId) {
     let productsInWishlist = getLocalStorage("products-in-wishlist") || [];
     let productAlreadyAdded = productsInWishlist.find(p => p.productId == productId);
 
-    if (!productAlreadyAdded){
+    if (productAlreadyAdded == null){
         let products = await getData("products");
         let product = products.find(p => p.productId == productId);
         productsInWishlist.push(product);

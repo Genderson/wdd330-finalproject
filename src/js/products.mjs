@@ -1,6 +1,7 @@
 import { getData } from "./productData.mjs";
 import { getLocalStorage, renderListWithTemplate, renderWithTemplate, setLocalStorage, updateQuantity } from "./utils.mjs";
 import { displayTotalCartItems } from "./cart.mjs";
+import { addToWishlist } from "./wishlist.mjs";
 
 export async function loadProducts(selector, categoryIds, clear) {
     let products = await getData("products");
@@ -40,6 +41,17 @@ export async function loadProducts(selector, categoryIds, clear) {
             await addTocart(productId);
         });
     });
+
+    const addWishlistButtons = document.querySelectorAll(".add-wishlist-btn");
+    addWishlistButtons.forEach(button => {
+        button.addEventListener('click', async() => {
+            const productId = button.getAttribute("data-product-id");
+            await addToWishlist(productId);
+        });
+    });
+
+
+    
 }
 
 export async function loadViewProduct(selector, productId){
@@ -101,7 +113,9 @@ function buildProductTemplate(product) {
                     </li>
 
                     <li>
-                        <i class="fa-regular fa-heart user-options-icons"></i>
+                        <a href="javascript:void(0)" class="add-wishlist-btn" data-product-id="${product.productId}">
+                            <i class="fa-regular fa-heart user-options-icons"></i>
+                        </a>
                     </li>
                 </ul>
             </div>`;

@@ -9,19 +9,22 @@
   <body>
     <div class="cart-container">
       <header class="header">
-        <div class="menu">
-          <button>Botón 1</button>
-          <button>Botón 2</button>
-          <button>Botón 3</button>
-        </div>
+        <a href="/index.html">
+          <img src="/images/logo.png" width="200" height="180" alt="logo">
+        </a>
 
         <div class="user-options">
-          <a href=""><i class="fa-regular fa-heart user-options-icons"></i></a>
-          <a href="">
+          <a href="/wishlist/index.html">
+            <i class="fa-regular fa-heart user-options-icons"></i>
+            <div id="wishlist-items"></div>
+          </a>
+          <a href="/cart/index.html">
             <i class="fa-solid fa-cart-arrow-down user-options-icons"></i>
             <div id="cart-items"></div>
+          </a>            
+          <a href="">
+            <i class="fa-regular fa-user user-options-icons"></i>
           </a>
-          <a href=""><i class="fa-regular fa-user user-options-icons"></i></a>
         </div>
       </header>
 
@@ -74,6 +77,7 @@
             <p>Subtotal: $<span id="subtotal"></span></p>
             <p>Shipping: $<span id="shipping"></span></p>
             <p>Total: $<span id="total"></span></p>
+            <a href="/checkout/index.html">checkout</a>
         </div>
 
       <footer class="footer">

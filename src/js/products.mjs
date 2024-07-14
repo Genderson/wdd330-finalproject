@@ -1,12 +1,10 @@
 import { getData } from "./productData.mjs";
 import { getLocalStorage, renderListWithTemplate, renderWithTemplate, setLocalStorage, updateQuantity } from "./utils.mjs";
 import { displayTotalCartItems } from "./cart.mjs";
-import { addToWishlist } from "./wishlist.mjs";
+import { addToWishlist, displayTotalWishlistItems } from "./wishlist.mjs";
 
 export async function loadProducts(selector, categoryIds, clear) {
     let products = await getData("products");
-
-    //products = products.filter(p => categoryIds.includes(p.categoryId));
 
     if(categoryIds && !categoryIds.includes(6)){
         //products = products.filter(p => p.categoryId == categoryId);
@@ -47,6 +45,7 @@ export async function loadProducts(selector, categoryIds, clear) {
         button.addEventListener('click', async() => {
             const productId = button.getAttribute("data-product-id");
             await addToWishlist(productId);
+            displayTotalWishlistItems();
         });
     });
 
@@ -61,7 +60,7 @@ export async function loadViewProduct(selector, productId){
     renderWithTemplate(buildViewProductTemplate, selector, product);
 }
 
-async function addTocart(productId) {
+export async function addTocart(productId) {
     const inputQuantity = document.getElementById(`input-quantity-${productId}`);
     const quantity = Number(inputQuantity.value);
 

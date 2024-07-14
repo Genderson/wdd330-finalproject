@@ -1,6 +1,7 @@
 import { displayTotalCartItems } from "./cart.mjs";
 import { loadCategories, loadCategoriesFilter } from "./categories.mjs";
 import { loadProducts } from "./products.mjs";
+import { displayTotalWishlistItems }  from "./wishlist.mjs";
 
 const categories = document.querySelector("#categories-container");
 if (categories){
@@ -18,3 +19,4 @@ if (categoriesFilter){
 }
 
 displayTotalCartItems();
+displayTotalWishlistItems();

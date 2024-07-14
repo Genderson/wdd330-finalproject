@@ -24,10 +24,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /*background-color: #333;*/
-  /*color: white;*/
-  padding: 10px 10rem 10px 10rem;
-  margin-top: 4rem;
+  padding: 0 10rem 10px 10rem;
+  margin-top: 1rem;
 }
 
 .menu button,
@@ -71,7 +69,7 @@ body {
   width: 30%;
 }
 
-.products {
+.products, .wishlist {
   display: flex;
   justify-content: flex-start;
   padding: 20px;
@@ -357,7 +355,7 @@ input[type="number"] {
   color: #000;
 }
 
-#cart-items {
+#cart-items, #wishlist-items {
   position: absolute;
   top: -16px;
   right: 24px;

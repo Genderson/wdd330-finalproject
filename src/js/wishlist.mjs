@@ -1,10 +1,45 @@
 import { getData } from "./productData.mjs";
-import { getLocalStorage, setLocalStorage, renderListWithTemplate } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, renderListWithTemplate, updateQuantity } from "./utils.mjs";
+import { addTocart }  from "./products.mjs";
 
 export async function loadWishlistProducts(selector, clear) {
     let productsInWishlist = getLocalStorage("products-in-wishlist");
 
-    renderListWithTemplate(buildWishlistProductTemplate, selector, productsInWishlist, clear); 
+    renderListWithTemplate(buildWishlistProductTemplate, selector, productsInWishlist, clear);
+    const plusButtons = document.querySelectorAll(".qty-right-plus");
+    const minusButtons = document.querySelectorAll(".qty-left-minus");
+
+    plusButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.getAttribute("data-product-id");
+            updateQuantity(productId, 1);
+        });
+    });
+
+    minusButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.getAttribute("data-product-id");
+            updateQuantity(productId, -1);
+        });
+    });
+
+
+    const addCartButtons = document.querySelectorAll(".add-cart-btn");
+    addCartButtons.forEach(button => {
+        button.addEventListener('click', async() => {
+            const productId = button.getAttribute("data-product-id");
+            await addTocart(productId);
+        });
+    });
+
+    const removeWishlistButtons = document.querySelectorAll(".remove-wishlist");
+    removeWishlistButtons.forEach(button => {
+        button.addEventListener('click', async() => {
+            const productId = button.getAttribute("data-product-id");
+            removeWishlist(productId);
+            displayTotalWishlistItems();
+        });
+    });
 }
 
 
@@ -21,9 +56,27 @@ export async function addToWishlist(productId) {
     }
 }
 
+export function displayTotalWishlistItems() {
+    const cartItems = getLocalStorage("products-in-wishlist");
+    let totalItems = 0;
+  
+    if (cartItems) {
+      totalItems = cartItems.length;
+    }
+  
+    const cartIcon = document.querySelector("#wishlist-items");
+    if(cartIcon){
+      cartIcon.textContent = totalItems.toString();
+    }  
+}
+
+
 function buildWishlistProductTemplate(product) {
     
     return `<div id="${product.productId}" class="product-card">
+                <button type="button" class="remove-wishlist" data-product-id="${product.productId}">
+                    X
+                </button>
                 <img src="${product.image}" alt="">
                 <h2>${product.name}</h2>
                 <p>${product.price}</p>
@@ -40,17 +93,18 @@ function buildWishlistProductTemplate(product) {
                 </div>
                 <div id="add-to-cart-message-${product.productId}">
                 </div>
-
-                <ul class="product-option">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa-regular fa-eye openModalBtn" data-product-id="${product.productId}"></i>                            
-                        </a>
-                    </li>
-
-                    <li>
-                        <i class="fa-regular fa-heart user-options-icons"></i>
-                    </li>
-                </ul>
             </div>`;
+}
+
+
+function removeWishlist(productId){
+    let productsInWishlist = getLocalStorage("products-in-wishlist") || [];
+
+    if(productsInWishlist){
+        const newWishlist = productsInWishlist.filter(p => p.productId !== Number(productId));
+        setLocalStorage("products-in-wishlist", newWishlist);
+    }
+
+    const div = document.getElementById(productId);
+    div.remove();
 }

@@ -398,21 +398,29 @@ input[type="number"] {
   border: 1px solid #ccc;
 }
 
-/*
-h2 {
-  margin-bottom: 10px;
+/* checkout page */
+.checkout-form {
+  padding: 0.5em;
+  width: 60%;
+}
+.checkout-form label {
+  display: block;
+}
+.checkout-form input {
+  width: 100%;
+  font-size: 1.2em;
 }
 
-ul {
+.checkout-summary > ul {
+  padding-left: 0;
   list-style-type: none;
 }
-
-li {
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+.checkout-summary li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-p {
-  font-size: 18px;
-  margin: 10px 0;
-}*/
+.checkout-summary input {
+  width: 25%;
+  font-size: 1em;
+}

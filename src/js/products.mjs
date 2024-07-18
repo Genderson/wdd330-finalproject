@@ -125,7 +125,9 @@ function buildViewProductTemplate(product) {
     return `<div id="${product.productId}">
                 <img src="${product.image}" alt="${product.name}">
                 <h2>${product.name}</h2>
-                <p>${product.price}</p>
+                <p><strong>Code:</strong> ${product.code}</p>
+                <p><strong>Price:</strong> $${product.price}</p>
+                <p class="description">${product.description}</p>
             </div>`;
 }
 

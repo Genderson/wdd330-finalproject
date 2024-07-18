@@ -1,14 +1,11 @@
-import { getLocalStorage, setLocalStorage, renderListWithTemplate, updateQuantity } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.forms[0];
     if (form != null) {
-    // this is how it would look if we listen for the submit on the form
+
     form.addEventListener("submit", (e) => {
             e.preventDefault();
-            // e.target would contain our form in this case
-            //checkoutProcess.checkout(e.target);
-            //alert("hola");
 
             let cartItems = [];
             setLocalStorage("products-in-cart", cartItems);

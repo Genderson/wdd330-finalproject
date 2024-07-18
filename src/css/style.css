@@ -122,10 +122,17 @@ body {
   transition: all .8s ease-in-out;*/
 }
 
+.description{
+  text-align: justify;
+}
+
 /* Estilo base para la imagen */
 .category-card img,
 .product-card img {
   transition: transform 0.3s ease;
+  width: 140px;
+  height: 140px;
+  border-radius: 4px;
 }
 
 /* Estilo para el efecto hover */

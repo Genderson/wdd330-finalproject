@@ -79,7 +79,7 @@ function buildWishlistProductTemplate(product) {
                 </button>
                 <img src="${product.image}" alt="">
                 <h2>${product.name}</h2>
-                <p>${product.price}</p>
+                <p><strong>Price: </strong>$${product.price}</p>
                 <div>
                     <button type="button" class="qty-left-minus" data-product-id="${product.productId}">
                         <i class="fa fa-minus"></i>
@@ -91,7 +91,7 @@ function buildWishlistProductTemplate(product) {
                     </button>
                     <button type="button" data-product-id="${product.productId}" class="add-cart-btn">Add</button>
                 </div>
-                <div id="add-to-cart-message-${product.productId}">
+                <div style="display: none;" class="add-to-cart-message" id="add-to-cart-message-${product.productId}">
                 </div>
             </div>`;
 }

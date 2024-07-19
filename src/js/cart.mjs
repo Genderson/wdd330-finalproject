@@ -85,7 +85,7 @@ function buildCartTemplate(product) {
                 <td class="price" data-title="Price">
                     <span class="subtotal-value" id="subtotal-${product.productId}" data-product-price="${product.price}" >$${product.price * product.quantity}</span>
                 </td>
-                <td class="action text-center" data-title="Remove">
+                <td class="remove" data-title="Remove">
                     <i class="fa-solid fa-trash-can remove-cart-btn" data-product-id="${product.productId}"></i>
                 </td>
             </tr>`;
@@ -149,7 +149,7 @@ function calculateSummary(){
     const finalTax = document.getElementById(`tax`);
     const finalTotal = document.getElementById(`total`);
     if(subtotal > 0){
-        const tax = (subtotal * 0.06);
+        const tax = Math.round(subtotal * 0.06);
         shipping.innerHTML = 10;
         finalTax.innerHTML = tax;
         finalTotal.innerHTML = tax + subtotal + 10;

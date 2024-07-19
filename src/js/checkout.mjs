@@ -28,7 +28,7 @@ export function calculateValues(){
         subTotal += cart.quantity * cart.price;        
     }
 
-    let tax = (subTotal * 0.06);
+    let tax = Math.round(subTotal * 0.06);
     let total = tax + subTotal + shippingValue;
 
     const shipping = document.getElementById(`shipping`);

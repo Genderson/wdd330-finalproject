@@ -7,9 +7,7 @@ export async function loadProducts(selector, categoryIds, clear) {
     let products = await getData("products");
 
     if(categoryIds && !categoryIds.includes(6)){
-        //products = products.filter(p => p.categoryId == categoryId);
         products = products.filter(p => categoryIds.includes(p.categoryId));
-        //console.log(productss);
     }
 
     renderListWithTemplate(buildProductTemplate, selector, products, clear);
@@ -87,9 +85,9 @@ export async function addTocart(productId) {
 function buildProductTemplate(product) {
     
     return `<div id="${product.productId}" class="product-card">
-                <img src="${product.image}" alt="">
+                <img src="${product.image}" alt="image">
                 <h2>${product.name}</h2>
-                <p>${product.price}</p>
+                <p><strong>Prince: </strong>$${product.price}</p>
                 <div>
                     <button type="button" class="qty-left-minus" data-product-id="${product.productId}">
                         <i class="fa fa-minus"></i>
@@ -101,13 +99,13 @@ function buildProductTemplate(product) {
                     </button>
                     <button type="button" data-product-id="${product.productId}" class="add-cart-btn">Add</button>
                 </div>
-                <div id="add-to-cart-message-${product.productId}">
+                <div style="display: none;" class="add-to-cart-message" id="add-to-cart-message-${product.productId}">
                 </div>
 
                 <ul class="product-option">
                     <li>
                         <a href="javascript:void(0)">
-                            <i class="fa-regular fa-eye openModalBtn" data-product-id="${product.productId}"></i>                            
+                            <i class="fa-regular fa-eye openModalBtn user-options-icons" data-product-id="${product.productId}"></i>                            
                         </a>
                     </li>
 
@@ -133,9 +131,8 @@ function buildViewProductTemplate(product) {
 
 function showProductAddedMessage(productId, quantity) {
     let divMessage = document.getElementById(`add-to-cart-message-${productId}`);
-    //const myDiv = document.getElementById('add-to-cart-message');
     divMessage.style.display = "block";
-    divMessage.textContent = `Add to Cart text ${quantity}`;
+    divMessage.textContent = `Added to cart ${quantity} items`;
 
     setTimeout(() => {
         divMessage.style.display = "none";

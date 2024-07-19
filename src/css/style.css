@@ -52,7 +52,7 @@ body {
   font-weight: bold;
   font-size: 26px;
 }
-.subtitle{
+.subtitle {
   color: #ff8b0a;
 }
 .categories {
@@ -74,7 +74,8 @@ body {
   width: 30%;
 }
 
-.products, .wishlist {
+.products,
+.wishlist {
   display: flex;
   justify-content: flex-start;
   padding: 20px;
@@ -84,7 +85,8 @@ body {
   row-gap: 2rem;
 }
 
-.add-cart-btn, #checkoutSubmit{
+.add-cart-btn,
+#checkoutSubmit {
   padding: 7px 43px;
   margin-top: 10px;
   font-size: 17px;
@@ -95,7 +97,7 @@ body {
   cursor: pointer;
 }
 
-.add-to-cart-message{
+.add-to-cart-message {
   background-color: #b2f0b8;
   padding: 5px;
   margin-top: 9px;
@@ -104,21 +106,23 @@ body {
   color: #095219;
   font-size: 15px;
 }
-.qty-left-minus, .qty-right-plus{
+.qty-left-minus,
+.qty-right-plus {
   padding: 4px 6px;
   cursor: pointer;
   background-color: #fff;
   border: 1px solid;
 }
-.qty-left-minus:hover, .qty-right-plus:hover{
+.qty-left-minus:hover,
+.qty-right-plus:hover {
   background-color: #dcd4d4;
 }
 
-#categories-filter{
+#categories-filter {
   list-style: none;
 }
 
-#categories-filter li input[type="checkbox"]  {
+#categories-filter li input[type="checkbox"] {
   padding: 5px;
   margin: 4px;
   font-size: 20px;
@@ -131,9 +135,9 @@ body {
 
 #categories-filter li {
   margin-bottom: 10px;
-
 }
-.form-check-label, .checkbox_animated {
+.form-check-label,
+.checkbox_animated {
   cursor: pointer;
 }
 
@@ -169,7 +173,7 @@ body {
   list-style-type: none;
 }
 
-.product-option li{
+.product-option li {
   margin-right: 17px;
 }
 
@@ -180,10 +184,9 @@ body {
 .product-card:hover .product-option {
   display: flex;
   opacity: 1;
-
 }
 
-.description{
+.description {
   text-align: justify;
 }
 
@@ -208,18 +211,18 @@ body {
   transform: scale(1.1);
 }
 
-.price{
+.price {
   text-align: center;
 }
-.remove{
+.remove {
   text-align: center;
   font-size: 22px;
 }
-.remove-cart-btn{
+.remove-cart-btn {
   cursor: pointer;
 }
 
-#checkout{
+#checkout {
   padding: 10px 40px;
   background-color: #279b2f;
   color: #fff;
@@ -398,7 +401,6 @@ input[type="number"] {
   cursor: pointer;
 }
 
-
 /*cart page*/
 .cart-container {
   display: grid;
@@ -413,7 +415,7 @@ input[type="number"] {
 }
 
 .cart-items {
-  grid-area: cart-items; 
+  grid-area: cart-items;
   background-color: #f9f9f9;
   padding: 20px;
   border: 1px solid #ccc;
@@ -436,7 +438,8 @@ input[type="number"] {
   color: #000;
 }
 
-#cart-items, #wishlist-items {
+#cart-items,
+#wishlist-items {
   position: absolute;
   top: -16px;
   right: 24px;
@@ -448,7 +451,6 @@ input[type="number"] {
   border-radius: 19px;
   font-weight: bold;
 }
-
 
 /*wishlist page*/
 .wishlist-container {
@@ -464,7 +466,7 @@ input[type="number"] {
 }
 
 .items {
-  grid-area: items; 
+  grid-area: items;
   background-color: #f9f9f9;
   padding: 20px;
   border: 1px solid #ccc;
@@ -482,7 +484,7 @@ input[type="number"] {
 .remove-wishlist {
   padding: 6px 10px;
   margin-bottom: 10px;
-  background-color: #FF9800;
+  background-color: #ff9800;
   border: none;
   color: #fff;
   border-radius: 4px;

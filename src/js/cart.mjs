@@ -85,7 +85,7 @@ function buildCartTemplate(product) {
                 <td class="price" data-title="Price">
                     <span class="subtotal-value" id="subtotal-${product.productId}" data-product-price="${product.price}" >$${product.price * product.quantity}</span>
                 </td>
-                <td class="action text-center" data-title="Remove">
+                <td class="remove" data-title="Remove">
                     <i class="fa-solid fa-trash-can remove-cart-btn" data-product-id="${product.productId}"></i>
                 </td>
             </tr>`;
@@ -135,11 +135,7 @@ function calculateSubTotal(productId){
 function calculateSummary(){
     const subtotalValues = document.querySelectorAll(".subtotal-value");
     let subtotal = 0; 
-    /*for (const sub in subtotalValues) {
-        let value = sub.slice(1);
-        subtotal += Number(value);
-    }*/
-    
+
     for (let index = 0; index < subtotalValues.length; index++) {
         const element = subtotalValues[index];
         let value = element.textContent.slice(1);
@@ -150,13 +146,17 @@ function calculateSummary(){
     finalSubTotal.innerHTML = subtotal;
 
     const shipping = document.getElementById(`shipping`);
+    const finalTax = document.getElementById(`tax`);
     const finalTotal = document.getElementById(`total`);
     if(subtotal > 0){
+        const tax = Math.round(subtotal * 0.06);
         shipping.innerHTML = 10;
-        finalTotal.innerHTML = subtotal + 10;
+        finalTax.innerHTML = tax;
+        finalTotal.innerHTML = tax + subtotal + 10;
     }
     else{
         shipping.innerHTML = 0;
+        finalTax.innerHTML = 0;
         finalTotal.innerHTML = 0;
     }
 }

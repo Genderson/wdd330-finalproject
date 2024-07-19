@@ -12,6 +12,9 @@
         <a href="/index.html">
           <img src="/images/logo.png" width="200" height="180" alt="logo">
         </a>
+        <div class="title">
+          <p><span class="subtitle">FRESH</span> SUPERMARKET</p>
+        </div>
         <div class="user-options">
             <a href="/wishlist/index.html">
                 <i class="fa-regular fa-heart user-options-icons"></i>
@@ -29,15 +32,65 @@
 
       <div class="items">
             <div class="wishlist-tems">
-                <section id="wishlist-container" class="wishlist"></section>
+              <main class="divider">
+                <section class="products">
+                  <h2>Order</h2>
+                </section>
+          
+                <div id="checkout-response"></div>
+                <form action="checkout" class="checkout-form">
+                  <fieldset>
+                    <label for="fname"
+                      >First Name<input id="fname" name="fname" type="text" required
+                    /></label>
+                    <label for="lname"
+                      >Last Name<input id="lname" name="lname" type="text" required
+                    /></label>
+                    <label for="street"
+                      >Street<input id="street" name="street" type="text" required
+                    /></label>
+                    <label for="city"
+                      >City<input id="city" name="city" type="text" required
+                    /></label>
+                    <label for="state"
+                      >State<input id="state" name="state" type="text" required
+                    /></label>
+                    <label for="zip"
+                      >Zip<input  id="zip" name="zip" type="text" required
+                    /></label>
+                  </fieldset>
+          
+                  <fieldset>
+                    <label for="cardNumber"
+                      >Card number<input id="cardNumber" name="cardNumber" required
+                    /></label>
+                    <label for="expiration">Expiration<input id="expiration" name="expiration" /></label>
+                    <label for="code"
+                      >Security Code<input id="code" name="code" type="number"
+                    /></label>
+                  </fieldset>
+          
+                  <fieldset class="checkout-summary">
+                    <legend>Order Summary</legend>
+                    <div class="cart-summary">
+                      <p><strong>Shipping: $</strong><span id="shipping"></span></p>
+                      <p><strong>Subtotal: $</strong><span id="subtotal"></span></p>
+                      <p><strong>Tax: $</strong><span id="tax"></span></p>                         
+                      <p><strong>Total: $</strong><span id="total"></span></p>
+                  </div>
+                  </fieldset>
+          
+                  <button id="checkoutSubmit" type="submit">Pay</button>
+                </form>
+              </main>
             </div>
       </div>
       
       <footer class="footer">
-        <p>&copy; 2024 Mi Tienda. Todos los derechos reservados.</p>
+        <p>&copy; 2024 Fresh Supermarket. Final project WDD 330</p>
       </footer>
 
-      <script src="../js/wishlistPage.mjs" type="module" defer></script>
+      <script src="../js/checkoutPage.mjs" type="module" defer></script>
     </div>   
   </body>
 </html>

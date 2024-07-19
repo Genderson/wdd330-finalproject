@@ -12,7 +12,9 @@
         <a href="/index.html">
           <img src="/images/logo.png" width="200" height="180" alt="logo">
         </a>
-
+        <div class="title">
+          <p><span class="subtitle">FRESH</span> SUPERMARKET</p>
+        </div>
         <div class="user-options">
           <a href="/wishlist/index.html">
             <i class="fa-regular fa-heart user-options-icons"></i>
@@ -29,7 +31,7 @@
       </header>
 
         <div class="cart-items">
-          <h2>Productos en el Carrito</h2>
+          <h2>Products in the cart</h2>
 
           <table class="cart-products">
             <thead>
@@ -42,47 +44,22 @@
                 </tr>
             </thead>
             <tbody id="productsInCart-container">
-                <tr>
-                    <td>
-                      <img src="assets/imgs/shop/product-1-1.jpg" alt="#"></td>
-                    <td>
-                      <p>Field Roast Chao Cheese Creamy Original</p>
-                    </td>
-                    <td class="price" data-title="Price">
-                        <span class="text-body">$2.51 </span>
-                    </td>
-                    <td class="text-center detail-info" data-title="Stock">
-                      <div>
-                        <button type="button" class="qty-left-minus" data-product-id="${product.productId}">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <input class="qty-input" id="input-quantity-${product.productId}" type="number" name="quantity" min="1" max="100" value="1">       
-                        <button type="button" class="qty-right-plus" data-product-id="${product.productId}">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                      </div>
-                    </td>
-                    <td class="price" data-title="Price">
-                        <span class="text-brand">$2.51 </span>
-                    </td>
-                    <td class="action text-center" data-title="Remove">
-                      <a href="#" class="text-body"><i class="fa-solid fa-trash-can"></i></a>
-                    </td>
-                </tr>
+
             </tbody>
         </table>
         </div>
         <div class="cart-summary">
-            <h2>Resumen del Carrito</h2>
-            <p>Subtotal: $<span id="subtotal"></span></p>
-            <p>Shipping: $<span id="shipping"></span></p>
-            <p>Total: $<span id="total"></span></p>
-            <a href="/checkout/index.html">checkout</a>
+            <h2>Resume</h2>
+            <p><strong>Shipping: $</strong><span id="shipping"></span></p>
+            <p><strong>Subtotal: $</strong><span id="subtotal"></span></p>
+            <p><strong>Tax: $</strong><span id="tax"></span></p>                         
+            <p><strong>Total: $</strong><span id="total"></span></p>
+            <a id="checkout" href="/checkout/index.html">checkout</a>
         </div>
 
-      <footer class="footer">
-        <p>&copy; 2024 Mi Tienda. Todos los derechos reservados.</p>
-      </footer>
+        <footer class="footer">
+          <p>&copy; 2024 Fresh Supermarket. Final project WDD 330</p>
+        </footer>
 
       <script src="../js/cartPage.mjs" type="module" defer></script>
     </div>   

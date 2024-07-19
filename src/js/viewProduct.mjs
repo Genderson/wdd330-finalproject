@@ -7,17 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const productId = event.target.getAttribute('data-product-id');
         loadViewProduct(viewProduct, productId);
         openModal("viewProductModal");
-        //alert("open modal");
     } else if (event.target.classList.contains("close")) {
       closeModal("viewProductModal");
-      //clearViewProductDetails();
-      //alert("close modal");
     } else {
 
       const modal = document.getElementById("viewProductModal");
       if (modal && event.target === modal) {
-        //closeModal("viewProductModal");
-        //clearViewProductDetails();
         alert("close modal three");
       }
     }
